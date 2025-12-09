@@ -53,7 +53,7 @@ echo $'CoordLon: '$CoordLon
 CoordLat=$(cat $JSON_Path | jq -r .coord.lon)
 echo $'CoordLat: '$CoordLat
 
-WeatherMain=$(cat $JSON_Path | jq -r .weather)
+WeatherMain=$(cat $JSON_Path | jq -r .weather[0].main)
 echo $'WeatherMain: '$WeatherMain
 
 MainTemp=$(cat $JSON_Path | jq -r .main.temp)
@@ -221,7 +221,7 @@ echo $'****************************************\n'
 WxReport=$Name$' Weather'
 WxReport+=$'\n('$CoordLon$','$CoordLat$')'
 WxReport+=$'\n'$TIME
-#WxReport+=$'\nConditions: '$WeatherMain
+WxReport+=$'\nConditions: '$WeatherMain
 WxReport+=$'\nTemp: '$MainTemp
 WxReport+=$'\nFeels Like: '$MainFeelsLike
 #WxReport+=$'\nLow: '$MainTempMin
