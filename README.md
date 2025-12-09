@@ -1,2 +1,2 @@
 # mesh_wx
-openweathermap.org API to create weather report to send over meshtastic
+uses openweathermap.org API to create weather report then send over a local mesh
