@@ -21,7 +21,7 @@ JSON_Path=$'temp_mesh_wx_openweatherapi.json'
 echo $JSON_Path
 
 # openweathermap.org API key
-APIKey=$'0f902b4043b55cd835b969d545a4e045'
+APIKey=$'temp_mesh_wx_openweatherapi.json'
 echo $APIKey
 
 # openweathermap.org city id
