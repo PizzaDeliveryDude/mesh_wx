@@ -6,8 +6,10 @@
 # scheduling is handled by cron and sent on a non-default channel to avoid spamming the mesh
 
 # script setup
-LOG_FILE="/home/${USER}/mesh_wx/mesh_wx.log"
+LOG_FILE="mesh_wx/mesh_wx.log"
+
 BeginLog=$(date '+%Y-%m-%d %H:%M:%S')
+
 echo "" >> "$LOG_FILE"
 echo "" >> "$LOG_FILE"
 echo $'\n****************************************' >> "$LOG_FILE"
@@ -55,22 +57,16 @@ echo $'\n****************************************' >> "$LOG_FILE"
 echo $' script setup' >> "$LOG_FILE"
 echo $'****************************************' >> "$LOG_FILE"
 
-# set current runtime variable
-#TIME=$(date +"%Y-%m-%d %H:%M:%S") #date and time
-TIME=$(date +"%H:%M:%S") #time
-echo $'Time: '$TIME >> "$LOG_FILE"
-
 # set JSON file path and/or name
-JSON_FileName="/home/${USER}/mesh_wx/mesh_wx.json"
+JSON_FileName="mesh_wx/mesh_wx.json"
 JSON_Path=$JSON_FileName
 echo $'temp JSON location: '$JSON_Path >> "$LOG_FILE"
 
 # openweathermap.org API key
-source /home/${USER}/mesh_wx/.env
+source /home/goster/mesh_wx/.env
 echo $'APIKey: '$APIKey >> "$LOG_FILE"
 
 # openweathermap.org city id
-CityId=$'5125771'
 echo $'CityId: '$CityId >> "$LOG_FILE"
 
 # openweathermap.org api url
@@ -177,6 +173,7 @@ echo $'Name: '$Name >> "$LOG_FILE"
 echo $'\n****************************************' >> "$LOG_FILE"
 echo $' human readable weather data' >> "$LOG_FILE"
 echo $'****************************************\n' >> "$LOG_FILE"
+
 CoordLon=$(printf %2.2f $CoordLon)
 CoordLon=$CoordLon$'°W'
 echo $'CoordLon: '$CoordLon >> "$LOG_FILE"
@@ -193,30 +190,30 @@ echo $'MainTemp: '$MainTemp >> "$LOG_FILE"
 MainFeelsLike=${MainFeelsLike%.*}$'°F' # strip decimal, should round instead
 echo $'MainFeelsLike: '$MainFeelsLike >> "$LOG_FILE"
 
-MainTempMin=${MainTempMin%.*}$'°F'
+MainTempMin=${MainTempMin%.*}$'°F' # strip decimal, should round instead
 echo $'MainTempMin: '$MainTempMin >> "$LOG_FILE"
 
 MainTempMax=${MainTempMax%.*}$'°F' # strip decimal, should round instead
 echo $'MainTempMax: '$MainTempMax >> "$LOG_FILE"
 
-MainPressure=$MainPressure$' hPa'
+MainPressure=$MainPressure$'hPa'
 echo $'MainPressure: '$MainPressure >> "$LOG_FILE"
 
 MainHumidity=$MainHumidity$'%'
 echo $'MainHumidity: '$MainHumidity >> "$LOG_FILE"
 
-MainSeaLevel=$MainSeaLevel$' hPa'
+MainSeaLevel=$MainSeaLevel$'hPa'
 echo $'MainSeaLevel: '$MainSeaLevel >> "$LOG_FILE"
 
-MainGroundLevel=$MainGroundLevel$' hPa'
+MainGroundLevel=$MainGroundLevel$'hPa'
 echo $'MainGroundLevel: '$MainGroundLevel >> "$LOG_FILE"
 
 declare -i Visibility=$((Visibility))
 Visibility=Visibility/1000
-VisibilityString=$Visibility$' km'
+VisibilityString=$Visibility$'km'
 echo $'VisibilityString: '$VisibilityString >> "$LOG_FILE"
 
-WindSpeed=$WindSpeed$' mph'
+WindSpeed=${WindSpeed%.*}$'mph'
 echo $'WindSpeed: '$WindSpeed >> "$LOG_FILE"
 
 declare -i WindDegInt=$WindDeg
@@ -244,7 +241,7 @@ else
 fi
 echo $"WindDegName: "$WindDegName >> "$LOG_FILE"
 
-WindGust=$WindGust$' mph'
+WindGust=${WindGust%.*}$'mph'
 echo $'WindGust: '$WindGust >> "$LOG_FILE"
 
 Clouds=$Clouds$'%'
@@ -268,28 +265,33 @@ echo $'ID: '$ID >> "$LOG_FILE"
 
 echo $'Name: '$Name >> "$LOG_FILE"
 
+# set current time
+TIME=$(date +"%H:%M:%S") #time
+echo $'Time: '$TIME >> "$LOG_FILE"
+
 echo $'\n****************************************' >> "$LOG_FILE"
 echo $' weather report body' >> "$LOG_FILE"
 echo $'****************************************\n' >> "$LOG_FILE"
 
-WxReport=$Name$' Weather'
+WxReport=$Name$' mesh_wx'
 WxReport+=$'\n('$CoordLat$','$CoordLon$')'
 WxReport+=$'\n'$TIME
-WxReport+=$'\nConditions: '$WeatherMain
-WxReport+=$'\nTemp: '$MainTemp
-WxReport+=$'\nFeels Like: '$MainFeelsLike
-#WxReport+=$'\nLow: '$MainTempMin
-#WxReport+=$'\nHigh: '$MainTempMax
-#WxReport+=$'\nPressure: '$MainPressure
-#WxReport+=$'\nHumidity: '$MainHumidity
-#WxReport+=$'\nMainSeaLevel: '$MainSeaLevel
-#WxReport+=$'\nMainGroundLevel: '$MainGroundLevel
-#WxReport+=$'\nVisibility: '$VisibilityString
-WxReport+=$'\nWind: '$WindDegName$' '$WindSpeed
-WxReport+=$'\nWind Gust: '$WindGust
-#WxReport+=$'\nClouds: '$Clouds
-#WxReport+=$'\nSunrise: '$SysSunrise
-#WxReport+=$'\nSunset: '$SysSunset
+WxReport+=$'\nConditions:'$WeatherMain
+WxReport+=$'\nTemp:'$MainTemp
+WxReport+=$'\nFeels:'$MainFeelsLike
+#WxReport+=$'\nLow:'$MainTempMin
+#WxReport+=$'\nHigh:'$MainTempMax
+#WxReport+=$'\nPressure:'$MainPressure
+#WxReport+=$'\nHumidity:'$MainHumidity
+#WxReport+=$'\nMainSeaLevel:'$MainSeaLevel
+#WxReport+=$'\nMainGroundLevel:'$MainGroundLevel
+#WxReport+=$'\nVisibility:'$VisibilityString
+WxReport+=$'\nWind:'$WindDegName$''$WindSpeed
+WxReport+=$'\nGust:'$WindGust
+#WxReport+=$'\nClouds:'$Clouds
+#WxReport+=$'\nSunrise:'$SysSunrise
+#WxReport+=$'\nSunset:'$SysSunset
+WxReport+=$'\n📍Midtown East'
 
 echo "$WxReport" >> "$LOG_FILE"
 
@@ -304,7 +306,9 @@ fi
 echo $'\n****************************************' >> "$LOG_FILE"
 echo $' meshtastic' >> "$LOG_FILE"
 echo $'****************************************\n' >> "$LOG_FILE"
+
 python -m venv ~/src/venv && source ~/src/venv/bin/activate;
+
 meshtastic --ch-index $Channel --sendtext "$WxReport">/dev/null 2>&1
 
 EndLog=$(date '+%Y-%m-%d %H:%M:%S')
