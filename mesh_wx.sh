@@ -63,7 +63,7 @@ JSON_Path=$JSON_FileName
 echo $'temp JSON location: '$JSON_Path >> "$LOG_FILE"
 
 # openweathermap.org API key
-source /home/goster/mesh_wx/.env
+source mesh_wx/.env
 echo $'APIKey: '$APIKey >> "$LOG_FILE"
 
 # openweathermap.org city id
