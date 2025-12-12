@@ -291,7 +291,7 @@ WxReport+=$'\nGust:'$WindGust
 #WxReport+=$'\nClouds:'$Clouds
 #WxReport+=$'\nSunrise:'$SysSunrise
 #WxReport+=$'\nSunset:'$SysSunset
-WxReport+=$'\n📍Midtown East'
+WxReport+=$'\n📍<where r u?>'
 
 echo "$WxReport" >> "$LOG_FILE"
 
