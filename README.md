@@ -1,8 +1,6 @@
 # mesh_wx
-uses openweathermap.org API to create weather report then send over a local mesh
+Uses openweathermap.org API to create weather report then send over a local mesh.
 
-runs on a raspberry pi via cron and connects to a Seed Studio Wio L1 Pro via USB
+Runs on a raspberry pi via cron and connects to a Seed Studio Wio L1 Pro via USB using Linux Native Meshtastic installation.
 
-put your own APIKey in the .env file in the same dir as mesh_wx.sh from openweathmap.org
-
-put your own CityId in mesh_wx.sh from openweathmap.org
+Use your own APIKey and CityId in .env file in the same dir as mesh_wx.sh from openweathmap.org.
