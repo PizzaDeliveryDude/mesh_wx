@@ -290,7 +290,6 @@ WxReport+=$'\nWind Gust: '$WindGust
 #WxReport+=$'\nClouds: '$Clouds
 #WxReport+=$'\nSunrise: '$SysSunrise
 #WxReport+=$'\nSunset: '$SysSunset
-WxReport+=$'\nSent from Midtown East'
 
 echo "$WxReport" >> "$LOG_FILE"
 
