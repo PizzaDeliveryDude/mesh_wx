@@ -8,7 +8,7 @@ It is a crude way to send NOAA current conditions via Meshtastic.
 
 ### meshtasticd
 
-### make sure the bash scripts are executable:
+### make sure the bash script is executable:
 
 sudo chmod +x mesh_wx/mesh_wx.sh
 
