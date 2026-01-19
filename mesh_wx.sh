@@ -2,11 +2,11 @@
 
 # usage examples
 # Griffith Observatory, Los Angles, CA
-# template.sh 34.11 -118.30 -8 0 "Griffith Observatory"
+# mesh_wx.sh 34.11 -118.30 -8 0 "Griffith Observatory"
 # Washington Monument, Washington DC
-# template.sh 38.88 -77.03 -5 0 "Washington DC"
+# mesh_wx.sh 38.88 -77.03 -5 0 "Washington DC"
 # Central Park New York City
-# template.sh 40.78 -73.96 -5 0 "Central Park"
+# mesh_wx.sh 40.78 -73.96 -5 0 "Central Park"
 
 # global variables
 LAT="${1:-40.78}"
